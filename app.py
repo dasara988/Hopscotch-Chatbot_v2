@@ -18,7 +18,7 @@ from langchain_core.prompts import MessagesPlaceholder
 import chains
 from chains import SAMPLE_TICKETS, build_chatbot, run_triage_chain
 from llm import AVAILABLE_MODELS, DEFAULT_MODEL, get_llm
-from prompts import POLICY, PROMPT_CATALOG, SUPPORT_PROMPT
+from prompts import PROMPT_CATALOG, SUPPORT_PROMPT
 
 load_dotenv()
 st.set_page_config(page_title="Hopscotch Support (Session 2)", page_icon="🧒", layout="wide")
