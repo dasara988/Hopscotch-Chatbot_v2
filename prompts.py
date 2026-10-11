@@ -84,3 +84,34 @@ RESPONSE_PROMPT = ChatPromptTemplate.from_messages([
     )),
     ("human", "Category: {category}\nDetails: {details}\nOriginal message: {ticket_text}"),
 ]).partial(policy=POLICY)
+
+# ---------------------------------------------------------------------------
+# Catalog used by the "Prompt Templates" tab in app.py
+# ---------------------------------------------------------------------------
+PROMPT_CATALOG: dict[str, dict] = {
+    "Support chatbot": {
+        "prompt": SUPPORT_PROMPT,
+        "description": "System rules + the full return policy, then the running chat history, then the customer's new message.",
+        "used_in": "Chat tab - build_chatbot() in chains.py",
+    },
+    "Ticket classification": {
+        "prompt": CLASSIFICATION_PROMPT,
+        "description": "Labels a ticket as policy_violation, genuine_defect or other using the 30/90-day rules.",
+        "used_in": "Triage step 1 - run_triage_chain() in chains.py",
+    },
+    "Detail extraction": {
+        "prompt": EXTRACTION_PROMPT,
+        "description": "Pulls customer, order, product, issue, days since delivery and order value out of free text as JSON.",
+        "used_in": "Triage step 2 - run_triage_chain() in chains.py",
+    },
+    "Priority scoring": {
+        "prompt": PRIORITY_PROMPT,
+        "description": "Turns category + extracted details into High / Medium / Low.",
+        "used_in": "Triage step 3 - run_triage_chain() in chains.py",
+    },
+    "Reply drafting": {
+        "prompt": RESPONSE_PROMPT,
+        "description": "Writes a warm 3-4 sentence draft reply, grounded in the policy (partial variable).",
+        "used_in": "Triage step 4 - run_triage_chain() in chains.py",
+    },
+}
